@@ -1,0 +1,44 @@
+{
+  "name": "remix-jazz",
+  "version": "0.0.1",
+  "description": "A powerfull set of utilities to take the best out of Remix.",
+  "sideEffects": false,
+  "author": {
+    "name": "Humberto Piaia",
+    "email": "betopiaia@gmail.com",
+    "url": "https://hpiaia.dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/hpiaia/remix-jazz"
+  },
+  "license": "MIT",
+  "keywords": [
+    "remix",
+    "remix.run",
+    "utils",
+    "authentication",
+    "authorization",
+    "validation"
+  ],
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --project tsconfig.json --module CommonJS --outDir ./dist"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.54.0",
+    "@typescript-eslint/parser": "^5.54.0",
+    "eslint": "^8.35.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.32.2",
+    "prettier": "^2.8.4",
+    "typescript": "^4.9.5"
+  },
+  "peerDependencies": {
+    "zod": "^3.20.6"
+  },
+  "engines": {
+    "node": ">=14"
+  }
+}

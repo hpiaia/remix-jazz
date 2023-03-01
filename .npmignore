@@ -1,8 +1,11 @@
 /.github
 /src
 /test
+.editorconfig
+.eslintignore
 .eslintrc.js
 .gitignore
 .npmignore
-.npmrc
+.prettierrc
+jest.config.js
 tsconfig.json

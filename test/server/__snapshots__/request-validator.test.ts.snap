@@ -1,3 +1,0 @@
-// Jest Snapshot v1, https://goo.gl/fbAQLP
-
-exports[`request handler should throw exception with request body is invalid 1`] = `"Request.formData: Could not parse content as FormData."`;

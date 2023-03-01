@@ -1,6 +1,6 @@
 import { createAuthStorage } from '../../src/server'
 
-describe('Auth', () => {
+describe('authentication', () => {
   const storage = createAuthStorage({
     sessionSecret: 'secret',
     userSessionKey: 'userId',

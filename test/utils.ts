@@ -12,3 +12,15 @@ export function createRequest({
     body,
   })
 }
+
+export function expectRejectResponseWithStatus<Result>(fn: () => Promise<Result>, status: number) {
+  expect(fn).rejects.toEqual(expect.objectContaining({ status }))
+}
+
+export function expectThrowForbidden(fn: () => Promise<unknown>) {
+  return expectRejectResponseWithStatus(fn, 403)
+}
+
+export function expectThrowUnprocessableEntity(fn: () => Promise<unknown>) {
+  return expectRejectResponseWithStatus(fn, 422)
+}

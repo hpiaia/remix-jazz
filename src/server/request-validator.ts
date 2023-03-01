@@ -35,7 +35,8 @@ export function createRequestValidator<Data>({ authorize, schema, forbiddenMessa
         await checkAuthorization(request)
 
         try {
-          return schema.parse(await getFormData(request))
+          const formData = await getFormData(request)
+          return schema.parse(formData)
         } catch (exception) {
           if (exception instanceof ZodError) {
             throw unprocessableEntity(exception.errors)

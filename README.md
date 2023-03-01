@@ -4,11 +4,11 @@ THIS IS A WORK IN PROGRESS, DO NOT USE IT IN PRODUCTION YET
 
 ## Server Features
 
-- [ ] Authentication
+- [x] Authentication
 - [ ] Permission
 - [ ] Request handling
   - [ ] Parsing and validation
-    - [ ] Form data
+    - [x] Form data
     - [ ] Parameters
     - [ ] Query string
   - [ ] Authorization

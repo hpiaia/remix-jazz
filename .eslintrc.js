@@ -14,6 +14,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
     '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
+    '@typescript-eslint/no-non-null-assertion': 'off',
     'prettier/prettier': 'error',
     'react/react-in-jsx-scope': 'off',
   },

@@ -3,17 +3,20 @@ import { forbidden, unprocessableEntity } from './responses'
 
 type Options<Data> = {
   schema: ZodSchema<Data>
-  authorize?: (request: Request) => Promise<boolean> | boolean
+  authorize?: (request: Request) => boolean | PromiseLike<boolean>
+  forbiddenMessage?: string
 }
 
 async function getFormData(request: Request) {
   return Object.fromEntries((await request.formData()).entries())
 }
 
-export function createRequestValidator<Data>({ authorize, schema }: Options<Data>) {
+export function createRequestValidator<Data>({ authorize, schema, forbiddenMessage }: Options<Data>) {
   async function checkAuthorization(request: Request) {
     const isAuthorized = authorize ? await authorize(request) : true
-    if (!isAuthorized) throw forbidden('Forbidden.')
+    if (!isAuthorized) {
+      throw await forbidden(forbiddenMessage ?? 'Forbidden')
+    }
   }
 
   return (request: Request) => {
@@ -34,9 +37,10 @@ export function createRequestValidator<Data>({ authorize, schema }: Options<Data
         try {
           return schema.parse(await getFormData(request))
         } catch (exception) {
-          if (exception instanceof ZodError<Data>) {
+          if (exception instanceof ZodError) {
             throw unprocessableEntity(exception.errors)
           }
+          throw exception
         }
       },
     }

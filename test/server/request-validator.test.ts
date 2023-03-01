@@ -57,7 +57,7 @@ describe('request handler', () => {
     })
   })
 
-  it('should throw an error when formData input is invalid', async () => {
+  it('should throw unprocessable entity when formData is invalid', async () => {
     const body = new FormData()
 
     const request = createRequest({
@@ -65,7 +65,21 @@ describe('request handler', () => {
       body,
     })
 
-    expect(myRequest(request).formDataOrThrow).rejects.toThrowErrorMatchingSnapshot()
+    try {
+      await myRequest(request).formDataOrThrow()
+    } catch (error) {
+      expect(error).toBeInstanceOf(Response)
+      expect((error as Response).status).toBe(422)
+    }
+  })
+
+  it('should throw exception with request body is invalid', async () => {
+    const request = new Request('http://localhost', {
+      method: 'POST',
+      body: 'invalid-body',
+    })
+
+    await expect(myRequest(request).formDataOrThrow()).rejects.toThrowErrorMatchingSnapshot()
   })
 
   it('should throw a 403 response when request is not authorized', async () => {
@@ -86,6 +100,30 @@ describe('request handler', () => {
     } catch (error) {
       expect(error).toBeInstanceOf(Response)
       expect((error as Response).status).toBe(403)
+      expect(await (error as Response).text()).toBe('"Forbidden"')
     }
+  })
+
+  it('should pass authorization when no function is present', async () => {
+    const noAuthValidator = createRequestValidator({
+      schema: z.object({
+        name: z.string(),
+      }),
+    })
+
+    const body = new FormData()
+    body.append('name', 'John Doe')
+
+    const request = createRequest({
+      method: 'post',
+      body,
+      url: '/nope',
+    })
+
+    const { success, errors, data } = await noAuthValidator(request).formData()
+
+    expect(success).toBe(true)
+    expect(errors).toBeUndefined()
+    expect(data).toBeDefined()
   })
 })

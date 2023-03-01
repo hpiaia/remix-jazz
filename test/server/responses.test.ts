@@ -6,7 +6,7 @@ import {
   notFound,
   unauthorized,
   unprocessableEntity,
-} from '../../src/server/responses'
+} from '../../src/server'
 
 describe('server responses', () => {
   it('should return 201 for created', async () => {

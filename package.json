@@ -1,6 +1,6 @@
 {
   "name": "remix-jazz",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "description": "A powerfull set of utilities to take the best out of Remix.",
   "sideEffects": false,
   "author": {

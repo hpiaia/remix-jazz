@@ -15,5 +15,6 @@ module.exports = {
   rules: {
     '@typescript-eslint/consistent-type-imports': ['error', { fixStyle: 'inline-type-imports' }],
     'prettier/prettier': 'error',
+    'react/react-in-jsx-scope': 'off',
   },
 }

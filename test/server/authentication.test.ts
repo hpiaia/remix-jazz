@@ -6,7 +6,7 @@ describe('authentication', () => {
     userSessionKey: 'userId',
   })
 
-  const fakeRequest = (cookie?: string | null) => {
+  function fakeRequest(cookie?: string | null) {
     return new Request('http://localhost', {
       headers: {
         cookie: cookie ?? '',

@@ -4,18 +4,17 @@ import { forbidden, unprocessableEntity } from './responses'
 type Options<Data> = {
   schema: ZodSchema<Data>
   authorize?: (request: Request) => boolean | PromiseLike<boolean>
-  forbiddenMessage?: string
 }
 
 async function getFormData(request: Request) {
   return Object.fromEntries((await request.formData()).entries())
 }
 
-export function createRequestValidator<Data>({ authorize, schema, forbiddenMessage }: Options<Data>) {
+export function createRequestValidator<Data>({ authorize, schema }: Options<Data>) {
   async function checkAuthorization(request: Request) {
     const isAuthorized = authorize ? await authorize(request) : true
     if (!isAuthorized) {
-      throw await forbidden(forbiddenMessage ?? 'Forbidden')
+      throw await forbidden('Forbidden')
     }
   }
 

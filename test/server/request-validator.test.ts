@@ -41,6 +41,7 @@ describe('request handler', () => {
       })
 
       const body = new FormData()
+
       body.append('name', 'John Doe')
 
       const request = createRequest({
@@ -86,10 +87,13 @@ describe('request handler', () => {
         expect(errors).toBeDefined()
         expect(data).toBeUndefined()
 
-        expect(errors?.fieldErrors).toEqual({
-          name: ['Required'],
-          email: ['Required'],
-          password: ['Required'],
+        expect(errors).toEqual({
+          formErrors: [],
+          fieldErrors: {
+            name: ['Required'],
+            email: ['Required'],
+            password: ['Required'],
+          },
         })
       })
     })
@@ -133,8 +137,6 @@ describe('request handler', () => {
         })
 
         const data = await myRequest(request).formDataOrThrow()
-
-        expect(data).toBeDefined()
 
         expect(data).toEqual({
           name: 'John Doe',

@@ -16,7 +16,7 @@
     - [x] Form data
     - [ ] Parameters
     - [ ] Query string
-  - [ ] Authorization
+  - [x] Authorization
 - [ ] Pipeable middlewares
 
 ## Client Features

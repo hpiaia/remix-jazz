@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest'
 import { z } from 'zod'
 
 import { createRequestValidator } from '../../src/server'
@@ -6,8 +7,8 @@ import { createRequest, expectThrowForbidden, expectThrowUnprocessableEntity } f
 describe('request handler', () => {
   const myRequest = createRequestValidator({
     schema: z.object({
-      name: z.string(),
-      email: z.string().email(),
+      name: z.string().min(1),
+      email: z.string().min(1).email(),
       password: z.string().min(8),
     }),
 

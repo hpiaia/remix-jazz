@@ -1,3 +1,5 @@
+import { expect } from 'vitest'
+
 export function createRequest({
   url,
   method,
@@ -13,14 +15,14 @@ export function createRequest({
   })
 }
 
-export function expectRejectResponseWithStatus<Result>(fn: () => Promise<Result>, status: number) {
+export function expectRejectWithStatus<Result>(fn: () => Promise<Result>, status: number) {
   expect(fn).rejects.toEqual(expect.objectContaining({ status }))
 }
 
 export function expectThrowForbidden(fn: () => Promise<unknown>) {
-  return expectRejectResponseWithStatus(fn, 403)
+  return expectRejectWithStatus(fn, 403)
 }
 
 export function expectThrowUnprocessableEntity(fn: () => Promise<unknown>) {
-  return expectRejectResponseWithStatus(fn, 422)
+  return expectRejectWithStatus(fn, 422)
 }

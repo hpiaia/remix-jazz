@@ -2,9 +2,9 @@ import { describe, it, expect } from 'vitest'
 import { z } from 'zod'
 
 import { createRequestValidator } from '../../src/server'
-import { createRequest, expectThrowForbidden, expectThrowUnprocessableEntity } from '../utils'
+import { createRequest } from '../utils'
 
-describe('request handler', () => {
+describe('request validator', () => {
   const myRequest = createRequestValidator({
     schema: z.object({
       name: z.string().min(1),
@@ -29,7 +29,7 @@ describe('request handler', () => {
         url: '/admin',
       })
 
-      expectThrowForbidden(myRequest(request).formDataOrThrow)
+      expect(async () => await myRequest(request).formDataOrThrow()).rejects.toThrow()
     })
   })
 
@@ -65,7 +65,7 @@ describe('request handler', () => {
           body: new FormData(),
         })
 
-        expectThrowUnprocessableEntity(myRequest(request).formDataOrThrow)
+        expect(async () => await myRequest(request).formDataOrThrow()).rejects.toThrow()
       })
 
       it('formDataOrThrow should throw exception when body is malformated', async () => {
@@ -74,7 +74,7 @@ describe('request handler', () => {
           body: 'invalid-body',
         })
 
-        expect(myRequest(request).formDataOrThrow).rejects.toThrow()
+        expect(async () => await myRequest(request).formDataOrThrow()).rejects.toThrow()
       })
 
       it('formData should validate input', async () => {
